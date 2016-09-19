@@ -1,0 +1,12 @@
+[mchaney@mchaney-l code]$ tree smgen
+smgen
++---sitemapgen.py
++---testdir
+    +---dir1
+    |   +---testfile
+    +---dir2
+        +---dir3
+        |   +---testfile
+        +---testfile
+
+4 directories, 4 files

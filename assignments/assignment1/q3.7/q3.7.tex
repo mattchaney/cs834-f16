@@ -1,0 +1,15 @@
+\section{Question 3.7}
+
+\subsection{Question}
+Write a program that can create a valid sitemap based on the contents of a directory on your computer's hard disk. Assume that the files are accessible from a website at the URL http://www.example.com. For instance, if there is a file in your directory called homework.pdf, this would be available at http://www.example.com/homework.pdf. Use the real modification date on the file as the last modified time in the sitemap, and to help estimate the change frequency.
+
+\subsection{Resources}
+With the Python programming language \cite{python}, the script {\ttfamily sitemapgen.py}, in Listing \ref{listing:sitemapgen}, was created to perform the necessary tasks to complete Question 3.7.  The output matches the format found at Sitemaps.org \cite{sitemaps}.
+
+The script uses the last modified time of each file to estimate the change frequency and also escapes special characters to ensure URLs are valid.  The DOM is built programatically while the script traverses the file system and when this process is complete the document is printed to standard out.
+
+Running the script on the test directory matching the structure in Listing \ref{listing:tree} and the output is shown in Listing \ref{listing:sitemapout}.
+
+\lstinputlisting[language=bash, caption={test directory structure}, label=listing:tree]{q3.7/tree}
+
+\lstinputlisting[language=bash, caption={site map generator output}, label=listing:sitemapout]{q3.7/output}

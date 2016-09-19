@@ -1,0 +1,28 @@
+[mchaney@mchaney-l smgen]$ python sitemapgen.py -p .
+<?xml version="1.0" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>http://www.example.com/testdir/dir1/testfile</loc>
+        <lastmod>2016-09-18</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>http://www.example.com/testdir/dir2/testfile</loc>
+        <lastmod>2016-09-18</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>http://www.example.com/testdir/dir2/dir3/testfile</loc>
+        <lastmod>2016-09-18</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>http://www.example.com/sitemapgen.py</loc>
+        <lastmod>2016-09-19</lastmod>
+        <changefreq>always</changefreq>
+        <priority>0.5</priority>
+    </url>
+</urlset>
