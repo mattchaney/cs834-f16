@@ -9,13 +9,13 @@ def crawl():
     while True:
         url = frontier.popleft()
         if url not in visited:
-            visited.add(url)
             print 'retrieving', url
             try:
                 res = requests.get(url)
             except:
                 continue
             if res.ok:
+                visited.add(url)
                 soup = BeautifulSoup(res.text, 'html.parser')
                 links = soup.find_all('a')
                 for link in links:
