@@ -3,6 +3,7 @@
 *.blg
 *.log
 *.lol
+*.lof
 *.lot
 *.out
 *.toc
