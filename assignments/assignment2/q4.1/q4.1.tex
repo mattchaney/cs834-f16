@@ -1,0 +1,28 @@
+\section{Question 4.1}
+
+\subsection{Question}
+\input{q4.1/q4.1.txt}
+
+\subsection{Resources}
+The textbook \textit{Search Engines: Information Retrieval in Practice} \cite{seirip}, the Python programming language \cite{python}, the R programming language \cite{rlang} and the BeautifulSoup python library \cite{py:beautifulsoup} were used to answer this question.
+
+\subsection{Answer}
+The wc.py script \ref{listing:wordcount} was used to locate each file of the Wikipedia collection obtained from the book download page, available at \url{http://www.search-engines-book.com}.  The BeautifulSoup library was used to strip out the HTML tags and then the nltk library \cite{py:nltk} was used to tokenize the text.  The individual words were counted manually and the nltk library \cite{py:nltk} was used to count the bigrams.
+
+The word count graph can be found in Figure \ref{fig:wc} and the bigram count graph can be found in Figure \ref{fig:bigram}.
+
+
+\begin{figure}[h!]
+\centering
+\label{fig:wc}
+\fbox{\includegraphics[scale=.55]{code/q4.1/wc.pdf}}
+\caption{Word Counts for Small Wikipedia Corpus}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\label{fig:bigram}
+\fbox{\includegraphics[scale=.55]{code/q4.1/bg.pdf}}
+\caption{Bigram Counts for Small Wikipedia Corpus}
+\end{figure}
+
