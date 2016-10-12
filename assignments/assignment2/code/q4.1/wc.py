@@ -9,7 +9,6 @@ from os.path import isdir, isfile
 from bs4 import BeautifulSoup
 
 class WordCounter(object):
-
     def __init__(self, root):
         self.tokenizer = nltk.RegexpTokenizer(r'\w+')
         self.root = root
@@ -60,11 +59,9 @@ class WordCounter(object):
         print 'found {0} bigrams'.format(len(self.bgmap))
         self.writeresults()
 
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser('word count')
     parser.add_argument('-root', '-r', help='the root directory for parsing', default='en')
     args = parser.parse_args()
-
     wc = WordCounter(args.root)
     wc.run()
