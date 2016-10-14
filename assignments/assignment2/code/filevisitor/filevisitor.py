@@ -21,8 +21,8 @@ class FileVisitor(object):
     def visit(self, folder=''):
         items = os.listdir(self.root + folder)
         for item in items:
-            if self.visited == 101:
-                return
+            # if self.visited == 101:
+            #     return
             filepath = self.root + folder + os.sep + item
             if isfile(filepath):
                 sys.stdout.write("\rprocessing doc #%i" % self.visited)
@@ -128,7 +128,6 @@ class InlinkCounter(object):
         with open('inlinks.dat', 'w') as outfile:
             for k, v in sorted(self.inlinks.items(), key=operator.itemgetter(1), reverse=True):
                 outfile.write(str(v) + '\t' + k.encode('utf-8') + '\t' + str(self.anchor[k]) + '\n')
-
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser('word count')

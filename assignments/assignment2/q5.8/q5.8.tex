@@ -16,12 +16,10 @@ slow B
 the A B
 \end{verbatim}
 
-\subsection{Resources}
-The textbook \textit{Search Engines: Information Retrieval in Practice} \cite{seirip}, the Python programming language \cite{python} with the python libraries Beautiful Soup \cite{py:beautifulsoup} and NLTK \cite{py:nltk} were used to answer this question.
+\subsection{Approach}
+Again, the \texttt{filevisitor.py} script found in Listing \ref{listing:filevisitor} was modified to create the inverted index while visiting each file from the small Wikipedia collection.  Afterwards, the search.py \ref{listing:search} script can be used to search for terms within the document collection.
 
-\subsection{Answer}
-Again, the filevisitor.py script found in Listing \ref{listing:filevisitor} was modified to create the inverted index while visiting each file from the small Wikipedia collection.  Afterwards, the search.py \ref{listing:search} script can be used to search for terms within the document collection.
-
+\subsection{Results}
 Example output for searching the inverted index for the terms ``Guy'' and ``Gal'' can be found in Listing \ref{listing:searchresults}.\\
 
 \lstinputlisting[language=bash, caption={Search Results for Terms ``Guy'' and ``Gal''}, label=listing:searchresults]{q5.8/search.txt}

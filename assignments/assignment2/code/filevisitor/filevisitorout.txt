@@ -1,0 +1,6 @@
+[mchaney@mchaney-l filevisitor]$ python filevisitor.py
+delving into "en"
+processing doc #6042
+counted 232829 words
+counted 1662056 bigrams
+done

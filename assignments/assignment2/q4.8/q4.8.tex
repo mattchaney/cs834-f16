@@ -3,28 +3,35 @@
 \subsection{Question}
 Find the 10 Wikipedia documents with the most inlinks. Show the collection of anchor text for those pages.
 
-\subsection{Resources}
-The textbook \textit{Search Engines: Information Retrieval in Practice} \cite{seirip}, the Python programming language \cite{python} with the python libraries Beautiful Soup \cite{py:beautifulsoup} and NLTK \cite{py:nltk}, and the R programming language \cite{rlang} were used to answer this question.
+\subsection{Approach}
+The filevisitor.py script found in Listing \ref{listing:filevisitor} was modified to track inlink data for each document of the small Wikipedia collection by adding an \texttt{InlinkCounter} class.  This class can be found in Listing \ref{listing:inlink}.  
 
-\subsection{Answer}
-The filevisitor.py script found in Listing \ref{listing:filevisitor} was modified to track inlink data for each document of the small Wikipedia collection.  The pages with the highest inlink count can be found in Table \ref{table:inlinks}.
+\lstinputlisting[language=Python, caption={The InlinkCounter Class}, label=listing:inlink,linerange={99-130},firstnumber=99]{code/filevisitor/filevisitor.py}
+
+\subsection{Results}
+The pages with the highest inlink count can be found in Table \ref{table:inlinks}.
 
 \begin{table}[h!]
 \begin{center}
-  \begin{tabular}{ l r }
+  \begin{tabular}{ | l | r | r | }
     \hline
-    Page URI & Inlink Count \\
+    Inlink Count & Page URI & Anchor Text\\
     \hline
-    articles/2/0/0/2007.html & 2264 \\
-    articles/s/m/a/User\%7ESmackBot\_cc7a.html & 1896 \\
-    articles/2/0/0/2008.html & 1770 \\
-    articles/u/n/i/United\_States\_09d4.html & 1363 \\
-    articles/2/0/0/2006.html & 982 \\
-    articles/a/l/a/User\%7EAlaibot\_de3d.html & 791 \\
-    articles/c/y/d/User\%7ECydebot\_38a6.html & 676 \\
-    articles/l/i/v/Category\%7ELiving\_people\_7259.html & 675 \\
-    articles/b/l/u/User\%7EBluebot\_e595.html & 663 \\
-    articles/g/e/o/Geographic\_coordinate\_system.html & 655 \\
+    2264 & articles/2/0/0/2007.html & 2007, As of 2007 \\
+    1896 & articles/s/m/a/User\%7ESmackBot\_cc7a.html & SmackBot \\
+    1770 & articles/2/0/0/2008.html & 2008 \\
+    1363 & articles/u/n/i/United\_States\_09d4.html & United States Of America, \\
+     & & USA, Union, Thirteen Colonies, U.S., \\
+     & & United States of America, US, \\
+     & & United States, American, \\
+     & & Americans, America, \\
+     & & American nation, American citizen \\
+    982 & articles/2/0/0/2006.html & 2006 \\
+    791 & articles/a/l/a/User\%7EAlaibot\_de3d.html & Alaibot \\
+    676 & articles/c/y/d/User\%7ECydebot\_38a6.html & Cydebot \\
+    675 & articles/l/i/v/Category\%7ELiving\_people\_7259.html & Living people \\
+    663 & articles/b/l/u/User\%7EBluebot\_e595.html & Bluebot \\
+    655 & articles/g/e/o/Geographic\_coordinate\_system.html & coordinates, Location, Coordinates \\
     \hline
   \end{tabular}
 \caption{Top Ten Pages With Most Inlinks}
