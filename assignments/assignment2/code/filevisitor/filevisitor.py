@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 import argparse
 import os
 import operator
@@ -23,8 +21,8 @@ class FileVisitor(object):
     def visit(self, folder=''):
         items = os.listdir(self.root + folder)
         for item in items:
-            # if self.visited == 101:
-            #     return
+            if self.visited == 101:
+                return
             filepath = self.root + folder + os.sep + item
             if isfile(filepath):
                 sys.stdout.write("\rprocessing doc #%i" % self.visited)
@@ -33,7 +31,7 @@ class FileVisitor(object):
                     soup = BeautifulSoup(infile.read(), 'html.parser')
                     for counter in self.counters:
                         counter.count(filepath, soup)  
-                self.visited = self.visited + 1
+                self.visited += 1
             elif isdir(filepath):
                 self.visit(folder + os.sep + item)
 
@@ -42,7 +40,7 @@ class FileVisitor(object):
         self.visit()
         print
         for counter in self.counters:
-            counter.results()    
+            counter.results()
         print 'done'
 
 class WordCounter(object):
@@ -51,6 +49,14 @@ class WordCounter(object):
         self.wmap = {}
         self.invidx = {}
         self.bgmap = {}
+        self.vocab = {}
+        self.visited = 0
+
+    def sum(self):
+        sum = 0
+        for k, v in self.wmap.items():
+            sum += v
+        return sum
 
     def count(self, filepath, soup):
         plaintext = soup.get_text()
@@ -65,30 +71,43 @@ class WordCounter(object):
         for b in nltk.bigrams(tokens):
             if not self.bgmap.has_key(b):
                 self.bgmap[b] = 0
-            self.bgmap[b] = self.bgmap[b] + 1
+            self.bgmap[b] += 1
+        self.visited += 1
+        if self.visited % 100 == 0:
+            s = self.sum()
+            self.vocab[len(self.wmap)] = s
 
     def results(self):
-        print 'found {0} words'.format(len(self.wmap))
-        print 'found {0} bigrams'.format(len(self.bgmap))
-        with open('wordcount', 'w') as outfile:
+        print 'counted {0} words'.format(len(self.wmap))
+        print 'counted {0} bigrams'.format(len(self.bgmap))
+        with open('wordcount.dat', 'w') as outfile:
             for k, v in sorted(self.wmap.items(), key=operator.itemgetter(1), reverse=True):
                 outfile.write(str(v) + '\t' + k.encode('utf-8') + '\n')
-        with open('bigramcount', 'w') as outfile:
+        with open('bigramcount.dat', 'w') as outfile:
             for k, v in sorted(self.bgmap.items(), key=operator.itemgetter(1), reverse=True):
                 outfile.write(str(v) + '\t' + k[0].encode('utf-8') + '\t' + k[1].encode('utf-8') + '\n')
-        with open('invidx', 'w') as outfile:
+        with open('invidx.dat', 'w') as outfile:
             for k, v in sorted(self.invidx.items(), key=operator.itemgetter(1), reverse=True):
                 outfile.write(k.encode('utf-8') + '\t')
                 for page in v:
                     outfile.write(page + '\t')
                 outfile.write('\n')
+        with open('vocab.dat', 'w') as outfile:
+            for k, v in sorted(self.vocab.items(), key=operator.itemgetter(1)):
+                outfile.write(str(k) + '\t' + str(v) + '\n')
 
 class InlinkCounter(object):
     def __init__(self):
         self.inlinks = {}
+        self.anchor = {}
 
     def filter(self, href):
-        if '../' not in href:
+        if '../' not in href \
+        or 'Wikipedia%7E' in href \
+        or 'Portal%7E' in href \
+        or 'Help%7E' in href \
+        or 'Special%7' in href \
+        or href.replace('../','') == 'index.html':
             return True
 
     def count(self, filepath, soup):
@@ -101,12 +120,14 @@ class InlinkCounter(object):
                 href = href.replace('../', '')
                 if not self.inlinks.has_key(href):
                     self.inlinks[href] = 0
-                self.inlinks[href] = self.inlinks[href] + 1
+                    self.anchor[href] = set()
+                self.inlinks[href] += 1
+                self.anchor[href].add(link.text)
 
     def results(self):
-        with open('inlinks', 'w') as outfile:
+        with open('inlinks.dat', 'w') as outfile:
             for k, v in sorted(self.inlinks.items(), key=operator.itemgetter(1), reverse=True):
-                outfile.write(str(v) + '\t' + k.encode('utf-8') + '\n')
+                outfile.write(str(v) + '\t' + k.encode('utf-8') + '\t' + str(self.anchor[k]) + '\n')
 
 
 if __name__ == '__main__':
