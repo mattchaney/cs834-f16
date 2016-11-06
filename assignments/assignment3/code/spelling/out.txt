@@ -1,0 +1,10 @@
+[mchaney@mchaney-l spelling]$ ./spelling.py werds
+words
+[mchaney@mchaney-l spelling]$ ./spelling.py flewerz
+flower
+[mchaney@mchaney-l spelling]$ ./spelling.py splling
+selling
+[mchaney@mchaney-l spelling]$ ./spelling.py sweling
+swelling
+[mchaney@mchaney-l spelling]$ ./spelling.py aacck
+back

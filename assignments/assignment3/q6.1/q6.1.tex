@@ -1,0 +1,18 @@
+\section{Question 6.1}
+
+\subsection{Question}
+Using the Wikipedia collection provided at the book website, create a sample
+of stem clusters by the following process:
+\begin{enumerate}
+    \item Index the collection without stemming.
+    \item Identify the first 1,000 words (in alphabetical order) in the index.
+    \item Create stem classes by stemming these 1,000 words and recording which words become the same stem.
+    \item Compute association measures (Dice's coefficient) between all pairs of stems in each stem class. Compute co-occurrence at the document level.
+    \item Create stem clusters by thresholding the association measure. All terms that are still connected to each other form the clusters.
+\end{enumerate}
+
+Compare the stem clusters to the stem classes in terms of size and the quality (in
+your opinion) of the groupings.
+
+\subsection{Approach}
+The \texttt{stem.py} script, found in Listing \ref{listing:stem}, was used to solve this problem.

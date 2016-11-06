@@ -1,0 +1,30 @@
+\section{Question 6.2}
+
+\subsection{Question}
+Create a simple spelling corrector based on the noisy channel model. Use a
+single-word language model, and an error model where all errors with the same
+edit distance have the same probability. Only consider edit distances of 1 or 2.
+Implement your own edit distance calculator (example code can easily be found
+on the Web)
+
+\subsection{Approach}
+The \texttt{spelling.py} script, found in Listing \ref{listing:spelling}, was created using the Python programming language \cite{python}.  Downloaded \texttt{big.txt} to calculate an example language model.  These words were counted and stored in a map that was compressed on disk using the pickle python library \cite{py:pickle}.\\
+
+The process of determining a spelling correction is as follows:
+
+\begin{enumerate}
+    \item Count all the words contained in the example text file.  This count is used to determine the language model \(P(W)\) calculation.
+    \item Take the input word and determine all existing (correctly spelled) words with edit distance one and two.
+    \item With the assumption that shorter edit distances equate to a higher probability of being the correct spelling, select from the remaining set of (valid) words the one with the shortest edit distance and highest value for \(P(W)\).
+\end{enumerate}
+
+\(P(W)\) is calculated with the following formula:
+
+\[P(W) = \frac{C_W}{N}\]
+
+where \(C_W\) is the word count for word \(W\) and \(N\) is the sum of all word counts.
+
+\subsection{Results}
+Here is some sample output from the spelling.py script.
+
+\lstinputlisting[language=Python, caption={spelling.py example output}, label=listing:spellingout]{code/spelling/out.txt}
