@@ -1,0 +1,18 @@
+\section{Question 6.5}
+
+\subsection{Question}
+Describe the snippet generation algorithm in Galago. Would this algorithm
+work well for pages with little text content? Describe in detail how you would
+modify the algorithm to improve it.
+
+
+\subsection{Answer}
+Snippet creation is done by the \texttt{SnippetGenerator} class.  This class takes as parameters to it's \texttt{getSnippet} method the document text as a \texttt{String} and a \texttt{Set} of \texttt{String} query terms, and returns a \texttt{String} that is a query-relevant snippet, or summary, of the document.
+
+The snippet generator begins by turning the document text into a list of tokens for processing.  The generator then parses these tokens, looking for query term matches, and when it finds a match, it creates a \texttt{SnippetRegion} object that stores the location within the document where the query term matched, plus five contextual terms preceding and following each term match.  This equates to storing sentence fragments containing query terms.
+
+After collecting all of the regions in the document containing a query term the generator begins constructing the final snippet by adding the SnippetRegions found from the previous step, combining those regions that overlap each other into larger regions, until a final list of \texttt{SnippetRegions} is created with total length in terms is no greater than 40 + the length of the last \texttt{SnippetRegion} added.
+
+With the final list of \texttt{SnippetRegions} the algorithm builds an HTML string containing all the snippets concatenated together for rendering the snippet in a browser while adding \texttt{<strong>} tags around each query term match for emphasis.
+
+This approach favors regions at the beginning of the document without regard to query context.  One way to improve upon this method is to count the number of query terms found in the initial overlapped regions selected for the final snippet by assigning a score to each region based on the frequency of query term matches found within that region.  This could potentially cut down the size of the final snippet by choosing regions that contain more query words within the normal extent of 5 terms per query word match. 
