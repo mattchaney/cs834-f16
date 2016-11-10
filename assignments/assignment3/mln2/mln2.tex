@@ -4,10 +4,23 @@
 Using the small wikipedia example, choose 10 words and compute MIM, EMIM, chi square, dice association measures for full document \& 5 word windows (cf. pp. 203-205)
 
 \subsection{Approach}
-The python script \texttt{calc.py}, found in Listing \ref{listing:calc}, was used to complete this task.
+The python script \texttt{calc.py}, found in Listing \ref{listing:calc}, was used to complete this task.  It initially uses a previously constructed simple inverted index to calculate the association measures Mutual Information (\(MIM\)), Expected Mutual Information (\(EMIM\)), Chi-squared (\(\chi^2\)), and Dice's coefficient, for the following words:
+    
+\begin{itemize}
+    \item running
+    \item calculation
+    \item color
+    \item horse
+    \item sky
+    \item railroad
+    \item calendar
+    \item airplane
+    \item ocean
+    \item bicycle
+\end{itemize}
 
 \subsection{Results}
-Here is the output from running the \texttt{calc.py} script:
+After calculating the measures for all terms that co-occur with the chosen terms the top ten were compiled into the tables below:
 
 
 \begin{table}[h!]
@@ -240,3 +253,5 @@ Khari & Khari & cycling & Rider\\
 \caption{Calculated values for ``bicycle''}
 \label{tab:words}
 \end{table}
+
+For many of these terms Dice's coefficient and Chi-squared perform admirably, closely matching many related words, while the \(MIM\) and \(EMIM\) seem to find only proper nouns.

@@ -1,24 +1,4 @@
-\section{Question 6.1}
 
-\subsection{Question}
-Using the Wikipedia collection provided at the book website, create a sample
-of stem clusters by the following process:
-\begin{enumerate}
-    \item Index the collection without stemming.
-    \item Identify the first 1,000 words (in alphabetical order) in the index.
-    \item Create stem classes by stemming these 1,000 words and recording which words become the same stem.
-    \item Compute association measures (Dice's coefficient) between all pairs of stems in each stem class. Compute co-occurrence at the document level.
-    \item Create stem clusters by thresholding the association measure. All terms that are still connected to each other form the clusters.
-\end{enumerate}
-
-Compare the stem clusters to the stem classes in terms of size and the quality (in
-your opinion) of the groupings.
-
-\subsection{Approach}
-The \texttt{stem.py} and \texttt{cluster.py} scripts, found in Listings \ref{listing:stem} and \ref{listing:cluster}, were used to create the initial stem classes from the list of 1,000 words.  This list was created from a previously created simple inverted index.  After the stem classes were compiled Dice's coefficient was calculated for each and then pairs of co-occurring stemmed words that had a resulting score below a threshold of 0.1 were dropped from the stem class, resulting in a tight cluster of co-occurring words.  
-
-\subsubsection{Initial Classes}
-The first 1,000 words stemmed by using the nltk SnowballStemmer \cite{py:nltk} resulted in the following stem classes:\\
 
 
 \noindent
@@ -99,8 +79,6 @@ addam: Addams, Addam\\
 addict: Addiction, Addict\\
 
 
-\subsubsection{Stem Clusters}
-With a Dice's coefficient threshold value of 0.1 applied to filter out the weakly linked stem class elements, these are the remaining stem clusters:\\
 
 \noindent
 ah: Ahli, Ahly\\
@@ -116,9 +94,6 @@ age: Aging, Ageing\\
 agit: Agitators, Agitator, Agitation\\
 
 
-\subsection{Results}
-It seems clear that applying a co-occurrence association measure to the stem class creation process reduces the number of classes created overall, even breaking apart some groups that are semantically linked.  For example, the \textit{addict} class featured the two words Addiction and Addict, one is a different capitalization of the stem and the other is a different inflection of the stem, which shows that the class should have remained together.  This casts some doubt on the simple usage of Dice's coefficient in order to create stem classes that are semantically close.  There are other examples of semantically close classes being broken apart by the coarseness of this threshold.  To test the tuning of this parameter, another threshold value of 0.00001 was used for another test, this time producing the following results:\\
-
 
 \noindent
 affair: Affair, Affairs\\
@@ -126,8 +101,8 @@ ah: Ahli, Ahly\\
 agricultura: Agriculturae, Agricultura\\
 agenc: Agency, Agencies\\
 agit: Agitators, Agitator, Agitation\\
-affili: Affiliation, Affiliate, Affiliates, Affiliations\\
-adventur: Adventurers, Adventures, Adventure\\
+affili: Affiliations, Affiliate, Affiliates, Affiliation\\
+adventur: Adventurers, Adventure, Adventures\\
 agricultur: Agricultural, Agriculture\\
 advoc: Advocate, Advocates\\
 aflah: Aflah, AflaH\\
@@ -146,5 +121,3 @@ admir: Admirals, Admiral\\
 african: Africans, Africanism, African\\
 age: Aging, Age, Ages, Ageing\\
 aesthet: Aesthetics, Aesthetic\\
-
-These also seem to show good grouping for the stem classes, but there are still a number of classes that were broken up that should not have been.  Upon inspecting the code at run time it appears that some of the words that were put into stem classes together do not co-occur within any documents, even though they are semantically part of the same root word, which explains why they were separated as part of the Dice's coefficient threshold filtering operation.

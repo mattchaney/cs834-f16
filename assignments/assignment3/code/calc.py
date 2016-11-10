@@ -2,6 +2,7 @@
 
 import cPickle
 import math
+from data import words, N
 
 class Result(object):
     def __init__(self, a, b):
@@ -42,21 +43,6 @@ class Result(object):
         return '({},{})\n  MIM  {}\n  EMIM {}\n  X2   {}\n  Dice {}'.format(
             self.a, self.b, self.mim, self.emim, self.x2, self.dice)
 
-
-def init():
-    global words
-    try:
-        print 'loading cached word map'
-        words = cPickle.load(open('wordcount.p', 'rb'))
-    except IOError:
-        print 'cached word map not found, building now'
-        words = {line.split()[0]: line.split()[1:] for line in open('invidx.dat').readlines()}
-        cPickle.dump(words, open('wordcount.p', 'wb'))
-        words = cPickle.load(open('wordcount.p', 'rb'))
-    global N
-    N = float(sum(len(docs) for docs in words.values()))
-
-
 def calc(choices):
     print 'calculating...'
     return {choice: [Result(choice, word) for word in words.keys() if choice != word] for choice in choices}
@@ -96,9 +82,6 @@ def printtab(outfile, choice, mim, emim, x2, dice):
 def row(r, mim, emim, x2, dice):
     return mim[r] + ' & ' + emim[r] + ' & ' + x2[r] + ' & ' + dice[r] + '\\\\\n'
 
-
-
-init()
 choices = [
     'running',
     'calculation',

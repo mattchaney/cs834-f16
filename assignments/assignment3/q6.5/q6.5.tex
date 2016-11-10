@@ -15,4 +15,6 @@ After collecting all of the regions in the document containing a query term the 
 
 With the final list of \texttt{SnippetRegions} the algorithm builds an HTML string containing all the snippets concatenated together for rendering the snippet in a browser while adding \texttt{<strong>} tags around each query term match for emphasis.
 
+This approach does not seem like it would work very well with pages with little text content because it requires matching query terms to snippet regions in order to build the snippet, and if there is little text the opportunity for finding good contextual information related to queries drops.
+
 This approach favors regions at the beginning of the document without regard to query context.  One way to improve upon this method is to favor regions that contain more query terms.  This can be done by counting the number of query terms found in the combined regions and then ordering the snippet generation based on the regions with the highest contained query term counts.  This method could cut down the size of the final snippet by choosing regions that contain more query words within the normal extent of 5 terms per query word match, which would allow for a more concise summary of the website as it relates to the user query.
