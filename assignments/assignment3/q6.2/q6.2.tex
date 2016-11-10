@@ -8,21 +8,22 @@ Implement your own edit distance calculator (example code can easily be found
 on the Web)
 
 \subsection{Approach}
-The \texttt{spelling.py} script, found in Listing \ref{listing:spelling}, was created using the Python programming language \cite{python}.  Downloaded \texttt{big.txt} to calculate an example language model.  These words were counted and stored in a map that was compressed on disk using the pickle python library \cite{py:pickle}.\\
+Peter Norvig's noisy channel spelling correction algorithm \cite{pnorvig-spell} was used as the basis for this solution.  The \texttt{spelling.py} script, found in Listing \ref{listing:spelling}, was created as an implementation of this algorithm.  It was written with the Python programming language \cite{python}.
 
-The process of determining a spelling correction is as follows:
-
-\begin{enumerate}
-    \item Count all the words contained in the example text file.  This count is used to determine the language model \(P(W)\) calculation.
-    \item Take the input word and determine all existing (correctly spelled) words with edit distance one and two.
-    \item With the assumption that shorter edit distances equate to a higher probability of being the correct spelling, select from the remaining set of (valid) words the one with the shortest edit distance and highest value for \(P(W)\).
-\end{enumerate}
+A large text file was downloaded from Mr. Norvig's website to calculate language model probability function \(P(W)\).  The words in the text file were counted and stored in a map that was compressed and saved on disk using the pickle python library \cite{py:pickle}.\\
 
 \(P(W)\) is calculated with the following formula:
 
 \[P(W) = \frac{C_W}{N}\]
 
-where \(C_W\) is the word count for word \(W\) and \(N\) is the sum of all word counts.
+where \(C_W\) is the word count for word \(W\) and \(N\) is the sum of all word counts.\\
+
+The process of determining a spelling correction is as follows:
+
+\begin{enumerate}
+    \item Take the input word and determine all existing (correctly spelled) words with edit distance one and two.
+    \item With the assumption that shorter edit distances equate to a higher probability of being the correct intended word, select from the set of words from the previous step the one with the shortest edit distance and highest value for \(P(W)\).
+\end{enumerate}
 
 \subsection{Results}
 Here is some sample output from the spelling.py script.

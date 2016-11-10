@@ -82,19 +82,15 @@ head = """\\begin{table}[h!]
 \hline
 """
 
-foot = """\hline
-\end{tabular}
-\caption{wordz}
-\label{tab:words}
-\end{table}
-"""
+foot = '\\hline\n\\end{tabular}\n\\caption{Calculated values for ``%s\'\'}\n\\label{tab:words}\n\\end{table}\n'
 
 def printtab(outfile, choice, mim, emim, x2, dice):
     outfile.write(head)
-    outfile.write('\\multicolumn{4}{c}{' + choice + '}\\\\\n\\hline\n\\textit{MIM} & \\textit{EMIM} & \\textit{X2} & \\textit{Dice}\\\\\n\\hline\n')
+    outfile.write('\\multicolumn{4}{c}{'
+        + choice + '}\\\\\n\\hline\n\\textit{MIM} & \\textit{EMIM} & \\textit{\(\chi^2\)} & \\textit{Dice}\\\\\n\\hline\n')
     for i in range(10):
         outfile.write(row(i, mim, emim, x2, dice))
-    outfile.write(foot)
+    outfile.write(foot % choice)
 
 def row(r, mim, emim, x2, dice):
     return mim[r] + ' & ' + emim[r] + ' & ' + x2[r] + ' & ' + dice[r] + '\\\\\n'
@@ -103,15 +99,15 @@ def row(r, mim, emim, x2, dice):
 
 init()
 choices = [
-    'walking',
-    'bathroom',
-    'slam',
+    'running',
+    'calculation',
+    'color',
     'horse',
     'sky',
-    'hamstring',
+    'railroad',
     'calendar',
     'airplane',
     'ocean',
-    'unpleasant']
+    'bicycle']
 results = calc(choices)
 printresults(results, choices)

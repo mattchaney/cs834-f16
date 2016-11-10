@@ -1,10 +1,18 @@
-[mchaney@mchaney-l spelling]$ ./spelling.py werds
-words
-[mchaney@mchaney-l spelling]$ ./spelling.py flewerz
-flower
-[mchaney@mchaney-l spelling]$ ./spelling.py splling
+[mchaney@mchaney-l spelling]$ ./spelling splling
 selling
-[mchaney@mchaney-l spelling]$ ./spelling.py sweling
+[mchaney@mchaney-l spelling]$ ./spelling sweling
 swelling
-[mchaney@mchaney-l spelling]$ ./spelling.py aacck
+[mchaney@mchaney-l spelling]$ ./spelling aacck
 back
+[mchaney@mchaney-l spelling]$ ./spelling panaceu
+palace
+[mchaney@mchaney-l spelling]$ ./spelling plaec
+place
+[mchaney@mchaney-l spelling]$ ./spelling intrmdiate
+intermediate
+[mchaney@mchaney-l spelling]$ ./spelling informatino
+information
+[mchaney@mchaney-l spelling]$ ./spelling pretende
+pretended
+[mchaney@mchaney-l spelling]$ ./spelling teh
+the
