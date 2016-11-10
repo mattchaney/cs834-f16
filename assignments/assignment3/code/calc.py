@@ -1,6 +1,7 @@
+#!/usr/bin/env python
+
 import cPickle
 import math
-
 
 class Result(object):
     def __init__(self, a, b):
@@ -46,12 +47,12 @@ def init():
     global words
     try:
         print 'loading cached word map'
-        words = cPickle.load(open('words.p', 'rb'))
+        words = cPickle.load(open('wordcount.p', 'rb'))
     except IOError:
         print 'cached word map not found, building now'
         words = {line.split()[0]: line.split()[1:] for line in open('invidx.dat').readlines()}
-        cPickle.dump(words, open('words.p', 'wb'))
-        words = cPickle.load(open('words.p', 'rb'))
+        cPickle.dump(words, open('wordcount.p', 'wb'))
+        words = cPickle.load(open('wordcount.p', 'rb'))
     global N
     N = float(sum(len(docs) for docs in words.values()))
 

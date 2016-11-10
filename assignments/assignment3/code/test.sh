@@ -1,3 +1,4 @@
+#!/bin/bash
 echo [mchaney@mchaney-l spelling]$ ./spelling splling
 ./spelling.py splling
 echo [mchaney@mchaney-l spelling]$ ./spelling sweling

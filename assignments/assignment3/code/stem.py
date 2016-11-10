@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
 import collections
-import cPickle
+import itertools
+from data import words
 from nltk.stem import *
-
 
 class Result(object):
     def __init__(self, a, b):
@@ -21,19 +21,7 @@ class Result(object):
         return self.dice
 
     def __repr__(self):
-        return '({},{}) Dice {}'.format(
-            self.a, self.b, self.dice)
-
-
-try:
-    print 'loading cached word map'
-    words = cPickle.load(open('words.p', 'rb'))
-except IOError:
-    print 'cached word map not found, building now'
-    words = {line.split()[0]: line.split()[1:] for line in open('invidx.dat').readlines()}
-    cPickle.dump(words, open('words.p', 'wb'))
-    words = cPickle.load(open('words.p', 'rb'))
-N = float(sum(len(docs) for docs in words.values()))
+        return '({},{}) Dice {}'.format(self.a, self.b, self.dice)
 
 # skipping first 13,000 terms because they are all numeric
 # so they won't meet language probability expectations
@@ -61,7 +49,6 @@ for pair in itertools.combinations(dupkeys.items(), 2):
             dupset[v1] = set()
         dupset[v1].add(k1)
         dupset[v1].add(k2)
-
 print '%d duplicate stems' % len(dupset)
 
 # calculate Dice's coefficient for each term with the same stem
@@ -71,5 +58,5 @@ for stem, terms in dupset.items():
         t1 = pair[0]
         t2 = pair[1]
         if not results.has_key(stem):
-            results[stem] = []
-        results[stem].append(Result(t1, t2))
+            results[stem] = set()
+        results[stem].add(Result(t1, t2))
