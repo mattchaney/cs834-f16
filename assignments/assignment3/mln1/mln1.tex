@@ -1,5 +1,6 @@
 \section{Question MLN1}
 
+
 \subsection{Question}
 Using the small Wikipedia example, choose 10 words and create stem classes as per the algorithm on pp. 191-192.
 
@@ -10,8 +11,48 @@ Using the small Wikipedia example, choose 10 words and create stem classes as pe
     \item Find the connected components of this graph. These are the new stem classes.
 \end{enumerate}
 
-\subsection{Approach}
 
+\subsection{Approach}
+The following were selected as the words to be stemmed using the approach outlined on pp. 191-192 of the textbook:
+
+\begin{itemize}
+    \item affiliates
+    \item affiliation
+    \item affiliated
+    \item fire
+    \item firing
+    \item fired
+    \item changing
+    \item changed
+    \item changes
+    \item change
+\end{itemize}
+
+The python scripts \texttt{stem.py} and \texttt{mln1.py} were written to complete this task and can be found in Listings \ref{listing:stem} and \ref{listing:mln1}, respectively.  After performing initial stemming using nltk's SnowballStemmer \cite{py:nltk}, Dice's coefficient was used as a measure of word co-occurrence with a window size of the entire document.  A threshold of 0.1 was used to determine which pairs of words should have edges in the resulting word co-occurrence graph.  
 
 
 \subsection{Results}
+The NetworkX library \cite{py:nx} was used to construct the graph found in Figure \ref{fig:graph} and to find the connected components.\\
+
+
+\begin{figure}[h!]
+\centering
+\label{fig:graph}
+\fbox{\includegraphics[scale=.6]{code/figure1.png}}
+\caption{Graph Visualization of Stem Clusters}
+\end{figure}
+
+
+The initial stem classes after applying the Dice's coefficient threshold of 0.1:\\
+
+\noindent
+fire: fire, firing, fired\\
+affili: affiliation, affiliates, affiliated\\
+chang: changing, changed, changes, change\\
+
+
+The final connected components from the resulting graph:\\
+
+\noindent
+fire: firing, fired\\
+affili: affiliation, affiliates\\

@@ -9,13 +9,13 @@ class Result(object):
     def __init__(self, a, b):
         self.a = a
         self.b = b
-        sa = set(words[a])
-        sb = set(words[b])
-        sab = sa.intersection(sb)
-        na = float(len(sa))
-        nb = float(len(sb))
-        nab = float(len(sab))
-        self.dice = nab / (na + nb)
+        self.sa = set(words[a])
+        self.sb = set(words[b])
+        self.sab = self.sa.intersection(self.sb)
+        self.na = float(len(self.sa))
+        self.nb = float(len(self.sb))
+        self.nab = float(len(self.sab))
+        self.dice = self.nab / (self.na + self.nb)
 
     def getdice(self):
         return self.dice
@@ -59,3 +59,28 @@ def getstems(wordlist):
                 results[stem] = set()
             results[stem].add(Result(t1, t2))
     return classes, results
+
+
+def convert(filtered):
+    converted = {}
+    for stem, fres in filtered.items():
+        if len(fres) > 0:
+            res = set()
+            for result in fres:
+                res.add(result.a)
+                res.add(result.b)
+            converted[stem] = res
+    return converted
+
+
+def printtables(fname, resultset, mode='w'):
+    head = '\\begin{table}[h!]\n\\centering\n\\begin{tabular}{ | c | c | }\n'
+    foot = '\\hline\n\\end{tabular}\n\\caption{``%s\'\' stems}\n\\label{tab:%s}\n\\end{table}\n'
+    print 'writing tables'
+    with open(fname, mode) as outfile:
+        outfile.write('\n\n\n\\noindent\n')
+        for stemclass in resultset.items():
+            outfile.write(stemclass[0])
+            outfile.write(': ')
+            outfile.write(', '.join(stemclass[1]))
+            outfile.write('\\\\\n')
