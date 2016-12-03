@@ -1,0 +1,32 @@
+\section{Question 8.3}
+
+\subsection{Question}
+For one query in the CACM collection (provided at the book website), generate a ranking using Galago, and then calculate average precision, NDCG at 5 and 10, precision at 10, and the reciprocal rank by hand.
+
+\subsection{Approach}
+Galago version 3.10 was first downloaded from the Project Lemur Source Forge website, which can be found at the following url: \url{https://sourceforge.net/projects/lemur/files/lemur/galago-3.10/}.
+
+An index of the CACM corpus, downloaded from the book website \url{http://www.search-engines-book.com/collections/}, was created with Galago with the following command:\\
+
+\texttt{galago build --indexPath=cacm.index --inputPath=docs --server=true}\\
+
+This index was used with Galago running as a search engine with the following command:\\
+
+\texttt{galago search --index=cacm.index}\\
+
+The getrel.py script was created to issue queries to the running Galago search server using the Python Requests library \cite{py:requests}.  The HTML responses were then parsed using the Python Beautiful Soup library \cite{py:soup}, where the CACM document identifiers were extracted for use in calculating the different evaluation scores for the Galago ranking.
+
+Precision and Recall were calculated with the following equations:
+
+\begin{equation}
+Recall = \frac{\mid A \cap B \mid}{\mid A \mid}
+\end{equation}
+
+\begin{equation}
+Precision = \frac{\mid A \cap B \mid}{\mid B \mid}
+\end{equation}
+
+In these equations, \(A\) is the relevant set of documents for the query, and \(B\) is the set of retrieved documents.
+
+\subsubsection{Caclulating Average Precision for CACM Query 1}
+Query 1 and 10 were used for this question.  Average precision was calculated 
