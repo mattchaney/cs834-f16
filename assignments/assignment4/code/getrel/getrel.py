@@ -2,12 +2,14 @@ import argparse
 import re
 import requests
 import xmltodict
+import numpy as np
 from math import log
 from bs4 import BeautifulSoup
 
 
 def parseargs():
     parser = argparse.ArgumentParser()
+    parser.add_argument('-p', '--port', type=int, default=42247, help='the galago search server port')
     parser.add_argument('-q', '--qnum', type=int, default=10, help='the query number to use')
     parser.add_argument('-n', type=int, default=10, help='the number of results to retrieve')
     return parser.parse_args()
@@ -35,7 +37,7 @@ URL = 'http://0.0.0.0:{0}/search'
 QUERY1 = 'what articles exist which deal with tss time sharing system an operating system for ibm computers'
 PDICT = {'q': QUERY1, 'start': 0, 'n': args.n}
 
-def query(qstr, port=54312):
+def query(qstr, port=args.port):
     PDICT['q'] = qstr
     PDICT['n'] = args.n
     res = requests.get(URL.format(port), params=PDICT)
@@ -93,6 +95,13 @@ def reciprank(rel, retr):
         if retr[i-1] in rel:
             return 1.0 / i
     return 0.0
+
+def ipr(rrun, prun):
+    res = []
+    res.append(max(prun))
+    for i in np.arange(0.1, 1, 0.1):
+        res.append(max(prun[int(i*10):]))
+    return np.arange(0, 1, 0.1).tolist(), res
 
 def getquery(qnum):
     return QUERIES['parameters']['query'][qnum-1]['text']

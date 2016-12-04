@@ -1,6 +1,5 @@
 from getrel import *
 
-
 TABLE = """\\begin{{table}}[h!]
 \\centering
 \\begin{{tabular}}{{ | c | c | c | c | c | c | }}
@@ -15,12 +14,10 @@ Query \# & Avg. Prec. & NDCG @5 & NDCG @10 & Prec. @10 & Recip. Rank \\\\
 \\end{{table}}
 """
 
-
 def printtab(qnum, qstr, retr, rel, prun, rrun, prec, rec, ndcg5, ndcg10, avgprec, recip):
     fname = 'query{0}.tab'.format(qnum)
     with open(fname, 'w') as fd:
         fd.write(TABLE.format(qnum, avgprec, ndcg5, ndcg10, prun[9], recip, qnum, args.n))
-
 
 results = process(args.qnum)
 printresults(*results)
