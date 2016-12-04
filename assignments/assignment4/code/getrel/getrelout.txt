@@ -1,14 +1,10 @@
-[mchaney@mchaney-l getrel]$ python getrel.py
-query: what articles exist which deal with tss time sharing system an operating system for ibm computers
-retrieved: [u'CACM-1410', u'CACM-1827', u'CACM-0397', u'CACM-1280', u'CACM-2319', u'CACM-1938', u'CACM-1908', u'CACM-1885', u'CACM-1071', u'CACM-2535']
-relevant: ['CACM-1410', 'CACM-1572', 'CACM-1605', 'CACM-2020', 'CACM-2358']
-precision: 0.2
-recall: 0.1
-average precision: 0.520833333333
-
-query: parallel languages languages for parallel computation
-retrieved: [u'CACM-2785', u'CACM-1811', u'CACM-1262', u'CACM-0950', u'CACM-2895', u'CACM-2700', u'CACM-2851', u'CACM-1747', u'CACM-2289', u'CACM-2266']
-relevant: ['CACM-46', 'CACM-141', 'CACM-392', 'CACM-950', 'CACM-1158', 'CACM-1198', 'CACM-1262', 'CACM-1380', 'CACM-1471', 'CACM-1601', 'CACM-1613', 'CACM-1747', 'CACM-1795', 'CACM-1811', 'CACM-2060', 'CACM-2150', 'CACM-2256', 'CACM-2289', 'CACM-2342', 'CACM-2376', 'CACM-2433', 'CACM-2618', 'CACM-2664', 'CACM-2685', 'CACM-2700', 'CACM-2714', 'CACM-2777', 'CACM-2785', 'CACM-2851', 'CACM-2895', 'CACM-2896', 'CACM-2912', 'CACM-3039', 'CACM-3075', 'CACM-3156']
-precision: 0.228571428571
-recall: 0.8
-average precision: 0.155878721569
+[mchaney@mchaney-l getrel]$ python getrel.py -n 1000 -q 10
+query 10
+query: parallel languages  languages for parallel computation
+precision: 0.027
+recall: 0.771428571429
+precision @10: 0.9
+NDCG @5: 1.0
+NDCG @10: 0.942709999032
+avg precision: 0.697677898817
+reciprocal rank: 1.0

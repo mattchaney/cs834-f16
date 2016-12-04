@@ -14,3 +14,4 @@ en
 *.pyc
 *.p
 **/cacm/
+*.tab
