@@ -1,4 +1,4 @@
-[mchaney@mchaney-l getrel]$ python getrel.py -n 1000 -q 10
+[mchaney@mchaney-l getrel]$ python q8.3.py -n 1000 -q 10
 query 10
 query: parallel languages  languages for parallel computation
 precision: 0.027

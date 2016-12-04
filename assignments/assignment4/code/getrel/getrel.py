@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 import argparse
 import re
 import requests
@@ -14,9 +12,7 @@ def parseargs():
     parser.add_argument('-n', type=int, default=10, help='the number of results to retrieve')
     return parser.parse_args()
 
-
 args = parseargs()
-
 
 def buildrel():
     rel = {}
@@ -27,11 +23,9 @@ def buildrel():
         rel[q].append(int(doc.split('-')[1]))
     return rel
 
-
 def buildqueries():
     with open('cacm.query.xml') as fd:
         return xmltodict.parse(fd.read())
-
 
 REL = buildrel()
 QUERIES = buildqueries()
@@ -50,27 +44,21 @@ def query(qstr, port=54312):
     soup = BeautifulSoup(res.text, 'html.parser')
     return [int(RE.match(href.text).groups()[0]) for href in soup.select("#result a")]
 
-# precision is the proportion of retrieved documents that are relevant
-# recall is the proportion of relevant documents that are retrieved
-
 def recall(rel, retr):
     relset = set(rel)
     retrset = set(retr)
     return float(len(relset.intersection(retrset))) / len(relset)
-
 
 def precision(rel, retr):
     relset = set(rel)
     retrset = set(retr)
     return float(len(relset.intersection(retrset))) / len(retrset)
 
-
 def run(rel, retr, func):
     rr = []
     for i in range(1, len(retr)+1):
         rr.append(func(rel, retr[:i]))
     return rr
-
 
 def avg(rel, retr, func):
     prun = run(rel, retr, precision)
@@ -80,10 +68,8 @@ def avg(rel, retr, func):
             res.append(prun[i])
     return float(sum(res))/len(res)
 
-
 def getrel(rel, retr, i):
     return 1 if retr[i] in rel else 0
-
 
 def DCG(rel, retr, p):
     sum = 0
@@ -97,12 +83,10 @@ def IDCG(p):
         sum += 1 / log(i, 2)
     return 1 + sum
 
-
 def NDCG(rel, retr, p):
     dcg = DCG(rel, retr, p)
     idcg = IDCG(p)
     return dcg / idcg
-
 
 def reciprank(rel, retr):
     for i in range(1, len(retr)+1):
@@ -110,32 +94,31 @@ def reciprank(rel, retr):
             return 1.0 / i
     return 0.0
 
-
 def getquery(qnum):
     return QUERIES['parameters']['query'][qnum-1]['text']
-
 
 def process(qnum):
     qstr = getquery(qnum)
     retr = query(qstr)
     rel = REL[str(qnum)]
     prun = run(rel, retr, precision)
+    rrun = run(rel, retr, recall)
     prec = precision(rel, retr)
     rec = recall(rel, retr)
     avgprec = avg(rel, retr, precision)
     ndcg5 = NDCG(rel, retr, 5)
     ndcg10 = NDCG(rel, retr, 10)
     recip = reciprank(rel, retr)
-    return qnum, qstr, retr, rel, prun, prec, rec, ndcg5, ndcg10, avgprec, recip
+    return qnum, qstr, retr, rel, prun, rrun, prec, rec, ndcg5, ndcg10, avgprec, recip
 
-
-def printresults(qnum, qstr, retr, rel, prun, prec, rec, ndcg5, ndcg10, avgprec, recip):
+def printresults(qnum, qstr, retr, rel, prun, rrun, prec, rec, ndcg5, ndcg10, avgprec, recip):
     print 'query {0}'.format(qnum)
     print 'query: {0}'.format(qstr)
     if args.n == 10:
         print 'relevant: {0}'.format(rel)
         print 'retrieved: {0}'.format(retr)
         print 'p-run: {0}'.format(prun)
+        print 'r-run: {0}'.format(rrun)
     print 'precision: {0}'.format(prec)
     print 'recall: {0}'.format(rec)
     print 'precision @10: {0}'.format(prun[9])
@@ -143,28 +126,3 @@ def printresults(qnum, qstr, retr, rel, prun, prec, rec, ndcg5, ndcg10, avgprec,
     print 'NDCG @10: {0}'.format(ndcg10)
     print 'avg precision: {0}'.format(avgprec)
     print 'reciprocal rank: {0}'.format(recip)
-
-
-TABLE = """\\begin{{table}}[h!]
-\\centering
-\\begin{{tabular}}{{ | c | c | c | c | c | c | }}
-\\hline
-Query \# & Avg. Prec. & NDCG @5 & NDCG @10 & Prec. @10 & Recip. Rank \\\\
-\\hline
-{0} & {1} & {2} & {3} & {4} & {5} \\\\
-\\hline
-\\end{{tabular}}
-\\caption{{Calculations for CACM query {6} from top {7} retrieved documents.}}
-\\label{{tab:query20}}
-\\end{{table}}
-"""
-
-def printtab(qnum, qstr, retr, rel, prun, prec, rec, ndcg5, ndcg10, avgprec, recip):
-    fname = 'query{0}.tab'.format(qnum)
-    with open(fname, 'w') as fd:
-        fd.write(TABLE.format(qnum, avgprec, ndcg5, ndcg10, prun[9], recip, qnum, args.n))
-
-
-results = process(args.qnum)
-printresults(*results)
-printtab(*results)    

@@ -8,7 +8,7 @@ For one query in the CACM collection (provided at the book website), generate a 
 \subsection{Approach}
 Galago version 3.10 was first downloaded from the Project Lemur Source Forge website, which can be found at the following URL: \url{https://sourceforge.net/projects/lemur/files/lemur/galago-3.10/}.  The CACM document corpus was downloaded from the textbook's website, found here: \url{http://www.search-engines-book.com/collections/}.  Galago was used to create an index of the CACM corpus and to run as a server to respond to queries on that index.
 
-The getrel.py script (found in Listing \ref{listing:getrel}) was created to issue queries to the Galago search server using the Python Requests library \cite{py:requests}.  The HTML responses were then parsed using the Python Beautiful Soup library \cite{py:beautifulsoup}, where the CACM document identifiers were extracted for use in calculating the different evaluation scores for the Galago ranking.
+The \texttt{getrel.py} and \texttt{q83.py} scripts (found in Listings \ref{listing:getrel} and \ref{listing:q83}, respectively) was created to issue queries to the Galago search server using the Python Requests library \cite{py:requests}.  The HTML responses were then parsed using the Python Beautiful Soup library \cite{py:beautifulsoup}, where the CACM document identifiers were extracted for use in calculating the different evaluation scores for the Galago ranking.
 
 The query used was from the CACM query set, number 10, and only the first 1000 retrieved documents were considered when calculating all scores for this experiment.
 
@@ -74,9 +74,9 @@ Reciprocal rank is defined as the reciprocal of the rank at which the first rele
 
 
 \subsection{Results}
-After building the index, CACM query 10 was processed by the \texttt{getrel.py} script, the output of which can be found in Listing \ref{listing:getrelout}.  This script calculates all the values shown in Table \ref{tab:query}, which are all of the required values for the question.
+After building the index, CACM query 10 was processed by the \texttt{getrel.py} script, the output of which can be found in Listing \ref{listing:q83out}.  This script calculates all the values shown in Table \ref{tab:query}, which are all of the required values for the question.
 
-\lstinputlisting[language={}, caption={Output from running the getrel.py script for queries 1 and 10 from the CACM collection.}, label=listing:getrelout]{code/getrel/getrelout.txt}
+\lstinputlisting[language={}, caption={Output from running the getrel.py script for queries 1 and 10 from the CACM collection.}, label=listing:q83out]{code/getrel/q83out.txt}
 
 \begin{table}[h!]
 \centering
