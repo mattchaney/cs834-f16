@@ -9,9 +9,9 @@ from bs4 import BeautifulSoup
 
 def parseargs():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-p', '--port', type=int, default=42247, help='the galago search server port')
-    parser.add_argument('-q', '--qnum', type=int, default=10, help='the query number to use')
-    parser.add_argument('-n', type=int, default=10, help='the number of results to retrieve')
+    parser.add_argument('-p', '--port', type=int, default=42247, help='galago server port')
+    parser.add_argument('-q', '--qnum', nargs='+', type=int, default=[6, 8], help='query number')
+    parser.add_argument('-n', type=int, default=10, help='number of retrieval pages')
     return parser.parse_args()
 
 args = parseargs()
@@ -98,10 +98,13 @@ def reciprank(rel, retr):
 
 def ipr(rrun, prun):
     res = []
-    res.append(max(prun))
-    for i in np.arange(0.1, 1, 0.1):
-        res.append(max(prun[int(i*10):]))
-    return np.arange(0, 1, 0.1).tolist(), res
+    for i in np.arange(0, 1.1, .1):
+        for j in range(len(rrun)):
+            if rrun[j] > i:
+                idx = j
+                break
+        res.append(max(prun[idx:]))
+    return np.arange(0, 1.1, 0.1), res
 
 def getquery(qnum):
     return QUERIES['parameters']['query'][qnum-1]['text']

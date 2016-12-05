@@ -19,6 +19,7 @@ def printtab(qnum, qstr, retr, rel, prun, rrun, prec, rec, ndcg5, ndcg10, avgpre
     with open(fname, 'w') as fd:
         fd.write(TABLE.format(qnum, avgprec, ndcg5, ndcg10, prun[9], recip, qnum, args.n))
 
-results = process(args.qnum)
-printresults(*results)
-printtab(*results)    
+for qnum in args.qnum:    
+    results = process(qnum)
+    printresults(*results)
+    printtab(*results)    
