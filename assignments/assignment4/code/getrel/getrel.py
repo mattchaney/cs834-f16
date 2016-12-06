@@ -108,6 +108,9 @@ def ipr(rrun, prun):
         res.append(max(prun[idx:]))
     return np.arange(0, 1.1, 0.1), res
 
+def rprecision(rel, prun):
+    return prun[len(rel)]
+
 def getquery(qnum):
     return QUERIES['parameters']['query'][qnum-1]['text']
 
@@ -137,6 +140,9 @@ def printresults(qnum, qstr, retr, rel, prun, rrun, prec, rec, ndcg5, ndcg10, av
         print 'retrieved: {0}'.format(retr)
         print 'p-run: {0}'.format(prun)
         print 'r-run: {0}'.format(rrun)
+    else:
+        print 'relevant: {}'.format(len(rel))
+        print 'retrieved: {}'.format(len(retr))
     print 'precision: {0}'.format(prec)
     print 'recall: {0}'.format(rec)
     print 'precision @10: {0}'.format(prun[9])
