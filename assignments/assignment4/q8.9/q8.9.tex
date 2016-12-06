@@ -1,0 +1,26 @@
+\section{Question}
+For one query in the CACM collection, generate a ranking and calculate BPREF. Show that the two formulations of BPREF give the same value.
+
+\subsection{Approach}
+The first version of BPREF found in the text book is defined as follows:
+
+\begin{equation}
+\nonumber
+BPREF = \frac{1}{R} \sum_{d_r}(1 - \frac{N_{d_r}}{R})
+\end{equation}
+
+Where \(d_r\) is a relevant document, \(N_{d_r}\) gives the number of non-relevant documents that are ranked higher than document \(d_r\) and \(R\) is the size of the set of all relevant documents for the given query.\\
+
+The second form is:
+
+\begin{equation}
+\nonumber
+BPREF = \frac{P}{P + Q}
+\end{equation}
+
+
+Where \(P\) is the number of preferences that agree and \(Q\) is the number of preferences that disagree.\\
+
+The scripts \texttt{getrel.py} and \texttt{q89.py}, found in Listings \ref{listing:getrel} and \ref{listing:q89} were used to complete this exercise.
+
+\subsection{Results}
