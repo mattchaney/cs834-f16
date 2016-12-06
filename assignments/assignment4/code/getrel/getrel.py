@@ -1,11 +1,11 @@
 import argparse
 import re
 import requests
+import sys
 import xmltodict
 import numpy as np
 from math import log
 from bs4 import BeautifulSoup
-
 
 def parseargs():
     parser = argparse.ArgumentParser()
@@ -63,11 +63,13 @@ def run(rel, retr, func):
     return rr
 
 def avg(rel, retr, func):
-    prun = run(rel, retr, precision)
+    prun = run(rel, retr, func)
     res = []
     for i in range(len(retr)):
         if retr[i] in rel:
             res.append(prun[i])
+    if len(res) == 0:
+        return 0.0
     return float(sum(res))/len(res)
 
 def getrel(rel, retr, i):
@@ -112,6 +114,8 @@ def getquery(qnum):
 def process(qnum):
     qstr = getquery(qnum)
     retr = query(qstr)
+    if str(qnum) not in REL:
+        return [None]*12
     rel = REL[str(qnum)]
     prun = run(rel, retr, precision)
     rrun = run(rel, retr, recall)
@@ -124,6 +128,8 @@ def process(qnum):
     return qnum, qstr, retr, rel, prun, rrun, prec, rec, ndcg5, ndcg10, avgprec, recip
 
 def printresults(qnum, qstr, retr, rel, prun, rrun, prec, rec, ndcg5, ndcg10, avgprec, recip):
+    if not qnum:
+        return
     print 'query {0}'.format(qnum)
     print 'query: {0}'.format(qstr)
     if args.n == 10:
@@ -138,3 +144,13 @@ def printresults(qnum, qstr, retr, rel, prun, rrun, prec, rec, ndcg5, ndcg10, av
     print 'NDCG @10: {0}'.format(ndcg10)
     print 'avg precision: {0}'.format(avgprec)
     print 'reciprocal rank: {0}'.format(recip)
+
+def printdata(rrun, prun, fname):
+    with open(fname, 'w') as fd:
+        zipped = zip(rrun, prun)
+        for z in zipped:
+            fd.write('{0}\t{1}\n'.format(z[0], z[1]))
+
+if __name__ == '__main__':
+    for qnum in args.qnum:
+        printresults(*process(qnum))

@@ -74,7 +74,7 @@ Reciprocal rank is defined as the reciprocal of the rank at which the first rele
 
 
 \subsection{Results}
-After building the index, CACM query 10 was processed by the \texttt{getrel.py} script, the output of which can be found in Listing \ref{listing:q83out}.  This script calculates all the values shown in Table \ref{tab:query}, which are all of the required values for the question.
+After building the index, CACM query 10 was processed by the \texttt{getrel.py} script, the output of which can be found in Listing \ref{listing:q83out}.  This script calculates all the values shown in Table \ref{tab:q83}, which are all of the required values for the question.
 
 \lstinputlisting[language={}, caption={Output from running the getrel.py script for queries 1 and 10 from the CACM collection.}, label=listing:q83out]{code/getrel/q83out.txt}
 
@@ -84,9 +84,9 @@ After building the index, CACM query 10 was processed by the \texttt{getrel.py} 
 \hline
 Query \# & Avg. Prec. & NDCG @5 & NDCG @10 & Prec. @10 & Recip. Rank \\
 \hline
-10 & 0.697677898817 & 1.0 & 0.942709999032 & 0.9 & 1.0 \\
+10 & 0.5922383982 & 1.0 & 0.942709999032 & 0.9 & 1.0 \\
 \hline
 \end{tabular}
-\caption{Calculations for CACM query 10 from top 1000 retrieved documents.}
-\label{tab:query}
+\caption{Calculations for CACM query 10 from all retrieved documents.}
+\label{tab:q83}
 \end{table}

@@ -1,0 +1,5 @@
+[mchaney@mchaney-l getrel]$ python q85.py -n 3204
+average precision: 0.339552098123
+NDCG @5 : 0.461648777763
+NDCG @10: 0.381724764912
+Precision @10: 0.317647058824

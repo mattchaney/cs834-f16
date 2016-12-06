@@ -1,7 +1,6 @@
-plotone <- function(data, qnum) {
-    pdf(paste('urpg', qnum, '.pdf', sep=''))
+plotone <- function(data, fname) {
+    pdf(fname)
     plot(data, type='o', pch=15, ylim=c(0,1), xlim=c(0,1),
-        main=paste("Recall-Precision Graph for CACM Query ", qnum, sep=""),
         ylab="Precision", xlab="Recall")
     dev.off()
 }
@@ -41,8 +40,9 @@ args = commandArgs(trailingOnly=TRUE)
 
 d1 <- read.table(paste('urpg', args[1], '.dat', sep=''))
 d2 <- read.table(paste('urpg', args[2], '.dat', sep=''))
-plotone(d1, args[1])
-plotone(d2, args[2])
+
+plotone(d1, paste('urpg', args[1], '.pdf', sep=''))
+plotone(d2, paste('urpg', args[2], '.pdf', sep=''))
 urpgraph(d1, d2, paste('urpg', args[1], '', args[2], '.pdf', sep=''))
 
 id1 <- read.table(paste('ipr', args[1], '.dat', sep=''))
@@ -51,3 +51,6 @@ iprgraph(d1, d2, id1, id2, paste('ipr', args[1], '', args[2], '.pdf', sep=''))
 
 avg <- read.table('avg.dat')
 aipgraph(avg, id1, id2, paste('aipr', args[1], args[2], '.pdf', sep=''))
+
+overallavg <- read.table('avgq85.dat')
+plotone(overallavg, 'avgq85.pdf')
