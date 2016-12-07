@@ -1,11 +1,13 @@
-\section{Question}
+\section{Question 8.9}
+
+\subsection{Question}
 For one query in the CACM collection, generate a ranking and calculate BPREF. Show that the two formulations of BPREF give the same value.
 
 \subsection{Approach}
 The first version of BPREF found in the text book is defined as follows:
 
 \begin{equation}
-\nonumber
+\label{eq:1}
 BPREF = \frac{1}{R} \sum_{d_r}(1 - \frac{N_{d_r}}{R})
 \end{equation}
 
@@ -14,7 +16,7 @@ Where \(d_r\) is a relevant document, \(N_{d_r}\) gives the number of non-releva
 The second form is:
 
 \begin{equation}
-\nonumber
+\label{eq:2}
 BPREF = \frac{P}{P + Q}
 \end{equation}
 
@@ -23,4 +25,47 @@ Where \(P\) is the number of preferences that agree and \(Q\) is the number of p
 
 The scripts \texttt{getrel.py} and \texttt{q89.py}, found in Listings \ref{listing:getrel} and \ref{listing:q89} were used to complete this exercise.
 
+\subsubsection{Implementation}
+The script \texttt{q89.py} was used as a driver program for this exercise and can be found in Listing \ref{listing:q89}.
+
+\lstinputlisting[language=Python, caption={q89.py script}, label=listing:q89]{code/getrel/q89.py}
+
+The first BPREF equation (\ref{eq:1}) was implemented as the \texttt{bpref1} function, which can be found in Listing \ref{listing:bpref1}.  This function iterates over the given set of retrieved documents and calculates 
+
+
+\clearpage
+
+\lstinputlisting[language=Python, caption={bpref1 function}, label=listing:bpref1, linerange={129-141}, firstnumber=129]{code/getrel/getrel.py}
+
+The second BPREF equation (\ref{eq:1}) was implemented as the \texttt{bpref2} function, and can be found in Listing \ref{listing:bpref1}.
+
+\lstinputlisting[language=Python, caption={bpref2 function}, label=listing:bpref2, linerange={143-154}, firstnumber=143]{code/getrel/getrel.py}
+
+
 \subsection{Results}
+Considering one example does not seem sufficient, a number of other queries were tested with the results shown in Table \ref{tab:q89out}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ | l | l | l | }
+\hline
+Query & BPREF(1) & BPREF(2) \\
+\hline
+1 & 0.2 & 0.172413793103\\
+\hline
+5 & 0.078125 & 0.0704225352113\\
+\hline
+6 & 0.0 & 0.0\\
+\hline
+8 & 0.222222222222 & 0.181818181818\\
+\hline
+11 & 0.443213296399 & 0.354767184035\\
+\hline
+16 & 0.0692041522491 & 0.0626959247649\\
+\hline
+21 & 0.380165289256 & 0.304635761589\\
+\hline
+\end{tabular}
+\caption{Table of BPREF values for a selection of CACM queries.}
+\label{tab:bpref}
+\end{table}
