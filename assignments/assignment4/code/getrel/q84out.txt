@@ -1,0 +1,27 @@
+[mchaney@mchaney-l getrel]$ python q84.py -q 6 8
+query 6
+query: interested in articles on robotics  motion planning particularly the geometric and combinatorial aspects   we are not interested in the dynamics of arm motion
+relevant: [1543, 2078, 2828]
+retrieved: [2826, 695, 531, 2828, 2931, 1014, 2721, 2078, 1543, 1867]
+p-run: [0.0, 0.0, 0.0, 0.25, 0.2, 0.16666666666666666, 0.14285714285714285, 0.25, 0.3333333333333333, 0.3]
+r-run: [0.0, 0.0, 0.0, 0.3333333333333333, 0.3333333333333333, 0.3333333333333333, 0.3333333333333333, 0.6666666666666666, 1.0, 1.0]
+precision: 0.3
+recall: 1.0
+precision @10: 0.3
+NDCG @5: 0.140386094433
+NDCG @10: 0.218631536782
+avg precision: 0.277777777778
+reciprocal rank: 0.25
+query 8
+query: addressing schemes for resources in networks  resource addressing in network operating systems
+relevant: [2625, 2849, 3032]
+retrieved: [2951, 2625, 2949, 2500, 3032, 2776, 2371, 1685, 1752, 2541]
+p-run: [0.0, 0.5, 0.3333333333333333, 0.25, 0.4, 0.3333333333333333, 0.2857142857142857, 0.25, 0.2222222222222222, 0.2]
+r-run: [0.0, 0.3333333333333333, 0.3333333333333333, 0.3333333333333333, 0.6666666666666666, 0.6666666666666666, 0.6666666666666666, 0.6666666666666666, 0.6666666666666666, 0.6666666666666666]
+precision: 0.2
+recall: 0.666666666667
+precision @10: 0.2
+NDCG @5: 0.40169418877
+NDCG @10: 0.272276725167
+avg precision: 0.45
+reciprocal rank: 0.5

@@ -31,7 +31,7 @@ iprl = []
 for qnum in args.qnum:
     results = process(qnum)
     printresults(*results)
-    qnum, qstr, retr, rel, prun, rrun, prec, rec, ndcg5, ndcg10, avgprec, recip, rprec = results
+    qnum, qstr, retr, rel, prun, rrun, prec, rec, ndcg5, ndcg10, avgprec, recip = results
     printdata(rrun, prun, 'urpg{0}.dat'.format(qnum))
     irrun, iprun = ipr(rrun, prun)
     printdata(irrun, iprun, 'ipr{0}.dat'.format(qnum))

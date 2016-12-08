@@ -4,7 +4,7 @@
 Another measure that has been used in a number of evaluations is R-precision.  This is defined as the precision at R documents, where R is the number of relevant documents for a query. It is used in situations where there is a large variation in the number of relevant documents per query. Calculate the average \textit{R-precision} for the CACM query set and compare it to the other measures.
 
 \subsection{Approach}
-The \texttt{getrel.py} and \texttt{q87.py} scripts were used to complete this exercise.  They can be found in Listings \ref{listing:getrel} and \ref{listing:q87}.  The script was run over the entire document set, which will minimize precision and maximize recall.  This will be taken into consideration when comparing to the R-precision score.
+The \texttt{getrel.py} and \texttt{q87.py} scripts were used to complete this exercise.  They can be found in Listings \ref{listing:getrel} and \ref{listing:q87}.  The script was run over the entire document set, which will minimize precision and maximize recall.  This will be taken into consideration when comparing the R-precision score to other measures.
 
 \subsection{Results}
 The output of running the \texttt{q87.py} script can be found in Listing \ref{listing:q87out}.
@@ -12,6 +12,6 @@ The output of running the \texttt{q87.py} script can be found in Listing \ref{li
 \lstinputlisting[language={}, caption={Output of q87.py for query 10.}, label=listing:q87out]{code/getrel/q87out.txt}
 
 \subsubsection{Comparison}
-For query 10 the R-precision score was 0.55, which is very close to the average precision over the entire document set.  This rather simplistic comparison is one mark towards R-precision being a decently reliable measure of performance for a ranking.  R-precision seems to be somewhat of an intuitive normalization of the precision.  This is because the sample size of documents is bounded by the size of the relevant set of documents.  This measure will favor rankings that push more relevant documents into higher ranks, which seems like a strong measure.  
+For query 10 the R-precision score was \(0.\bar5\), which is very close to the average precision over the entire document set.  This rather simplistic comparison is one mark towards R-precision being a semi-reliable measure of performance for a ranking.  R-precision seems to be somewhat of an intuitive normalization of precision, which the textbook touches on.  This measure will favor rankings that push more relevant documents into higher ranks, which sounds like the makings of a strong effectiveness measure, but it is not without faults.  
 
-The only problem with this measure is if the relevant set is very small the results of the calculation may vary wildly.  This may make the measure inappropriate for a targeted search because it will basically be 0 or 1, which isn't useful for comparing rankings.
+The only problem with this measure is if the relevant set is very small the results of the calculation may vary wildly.  This may make the measure inappropriate for a targeted search, because it will tend toward either 0 or 1, which isn't at all useful for comparing rankings.

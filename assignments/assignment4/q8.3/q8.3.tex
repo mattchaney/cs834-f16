@@ -6,11 +6,11 @@ For one query in the CACM collection (provided at the book website), generate a 
 
 
 \subsection{Approach}
-Galago version 3.10 was first downloaded from the Project Lemur Source Forge website, which can be found at the following URL: \url{https://sourceforge.net/projects/lemur/files/lemur/galago-3.10/}.  The CACM document corpus was downloaded from the textbook's website, found here: \url{http://www.search-engines-book.com/collections/}.  Galago was used to create an index of the CACM corpus and to run as a server to respond to queries on that index.
+Galago version 3.10 was first downloaded from the Project Lemur Source Forge website, which can be found at \url{https://sourceforge.net/projects/lemur/files/lemur/galago-3.10/}.  The CACM document corpus was downloaded from the textbook website, found at \url{http://www.search-engines-book.com/collections/}.  Galago was used to create an index of the CACM corpus and then as a search server to respond to queries on that index.
 
-The \texttt{getrel.py} and \texttt{q83.py} scripts (found in Listings \ref{listing:getrel} and \ref{listing:q83}, respectively) was created to issue queries to the Galago search server using the Python Requests library \cite{py:requests}.  The HTML responses were then parsed using the Python Beautiful Soup library \cite{py:beautifulsoup}, where the CACM document identifiers were extracted for use in calculating the different evaluation scores for the Galago ranking.
+The \texttt{getrel.py} and \texttt{q83.py} scripts (found in Listings \ref{listing:getrel} and \ref{listing:q83}, respectively) were created to issue CACM queries to the Galago search server using the Python Requests library \cite{py:requests}.  The HTML responses the server sent back were parsed using the Python Beautiful Soup library \cite{py:beautifulsoup}, where the CACM document identifiers were extracted for use in calculating the different evaluation scores for the ranking.  Various functions were added to the \texttt{getrel.py} script to derive the scores for all of the exercises in this assignment.
 
-The query used was from the CACM query set, number 10, and only the first 1000 retrieved documents were considered when calculating all scores for this experiment.
+CACM query 10 was used for this exercise and the retrieval set was limited to the first 100 documents.
 
 
 \subsubsection{Initial Precision and Recall Calculations}
@@ -26,7 +26,7 @@ Recall = \frac{\mid A \cap B \mid}{\mid A \mid}
 Precision = \frac{\mid A \cap B \mid}{\mid B \mid}
 \end{equation}
 
-In these equations, \(A\) is the relevant set of documents for the query, and \(B\) is the set of retrieved documents.
+Where \(A\) is the relevant set of documents for the query, and \(B\) is the set of retrieved documents.
 
 
 \subsubsection{Calculating Precision at Specific Rankings}
@@ -52,7 +52,9 @@ First, discounted cumulative gain at rank \(p\) (\(DCG_p\)) was calculated with 
 DCG_p = rel_1 + \sum_{i=2}^p \frac{rel_i}{log_2i}
 \end{equation}
 
-The ideal discounted cumulative gain at rank \(p\) (\(IDCG_p\)) is a simple series, expressed as:
+with \(rel_i\) being the relevancy for document \(i\) in the retrieval ranking.  For this experiment, this value is either \(0\) or \(1\). \\
+
+The ideal discounted cumulative gain at rank \(p\) (\(IDCG_p\)) is expressed as:
 
 \begin{equation}
 \nonumber
@@ -66,7 +68,6 @@ Finally, normalized discounted cumulative gain at rank \(p\) (\(NDCG_p\)) is exp
 NDCG_p = \frac{DCG_p}{IDCG_p}
 \end{equation}
 
-with \(rel_i\) being the relevancy for document \(i\) in the retrieval ranking.  For this experiment, this value is either \(0\) or \(1\).
 
 
 \subsubsection{Calculating Reciprocal Rank}
@@ -74,9 +75,9 @@ Reciprocal rank is defined as the reciprocal of the rank at which the first rele
 
 
 \subsection{Results}
-After building the index, CACM query 10 was processed by the \texttt{getrel.py} script, the output of which can be found in Listing \ref{listing:q83out}.  This script calculates all the values shown in Table \ref{tab:q83}, which are all of the required values for the question.
+After building the index, CACM query 10 was processed by the \texttt{getrel.py} script, the output of which can be found in Listing \ref{listing:q83out}.  This script calculates all the values shown in Table \ref{tab:q83}.
 
-\lstinputlisting[language={}, caption={Output from running the getrel.py script for queries 1 and 10 from the CACM collection.}, label=listing:q83out]{code/getrel/q83out.txt}
+\lstinputlisting[language={}, caption={Output from running the q83.py script for query 10 from the CACM collection.}, label=listing:q83out]{code/getrel/q83out.txt}
 
 \begin{table}[h!]
 \centering

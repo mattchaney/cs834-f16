@@ -28,14 +28,11 @@ The scripts \texttt{getrel.py} and \texttt{q89.py}, found in Listings \ref{listi
 \subsubsection{Implementation}
 The script \texttt{q89.py} was used as a driver program for this exercise and can be found in Listing \ref{listing:q89}.
 
-\lstinputlisting[language=Python, caption={q89.py script}, label=listing:q89]{code/getrel/q89.py}
-
-The first BPREF equation (\ref{eq:1}) was implemented as the \texttt{bpref1} function, which can be found in Listing \ref{listing:bpref1}.  This function iterates over the given set of retrieved documents and calculates 
-
-
-\clearpage
+The first BPREF equation (\ref{eq:1}) was implemented as the \texttt{bpref1} function, which can be found in Listing \ref{listing:bpref1}.  This function iterates over the given set of relevant documents and calculates the number of non-relevant documents 
 
 \lstinputlisting[language=Python, caption={bpref1 function}, label=listing:bpref1, linerange={129-141}, firstnumber=129]{code/getrel/getrel.py}
+
+\clearpage
 
 The second BPREF equation (\ref{eq:1}) was implemented as the \texttt{bpref2} function, and can be found in Listing \ref{listing:bpref1}.
 
@@ -43,27 +40,29 @@ The second BPREF equation (\ref{eq:1}) was implemented as the \texttt{bpref2} fu
 
 
 \subsection{Results}
-Considering one example does not seem sufficient, a number of other queries were tested with the results shown in Table \ref{tab:q89out}
+Considering one example did not seem sufficient, a number of other queries were tested with the results shown in Table \ref{tab:bpref}.
 
 \begin{table}[H]
 \centering
-\begin{tabular}{ | l | l | l | }
+\begin{tabular}{ | l | l | l | l |}
 \hline
-Query & BPREF(1) & BPREF(2) \\
+Query & R & BPREF(1) & BPREF(2) \\
 \hline
-1 & 0.2 & 0.172413793103\\
+1 & 5 & 0.2 & 0.172413793103\\
 \hline
-5 & 0.078125 & 0.0704225352113\\
+5 & 8 & 0.078125 & 0.0704225352113\\
 \hline
-6 & 0.0 & 0.0\\
+8 & 3 & 0.222222222222 & 0.181818181818\\
 \hline
-8 & 0.222222222222 & 0.181818181818\\
+11 & 19 & 0.443213296399 & 0.354767184035\\
 \hline
-11 & 0.443213296399 & 0.354767184035\\
+16 & 17 & 0.0692041522491 & 0.0626959247649\\
 \hline
-16 & 0.0692041522491 & 0.0626959247649\\
+21 & 11 & 0.380165289256 & 0.304635761589\\
 \hline
-21 & 0.380165289256 & 0.304635761589\\
+37 & 12 & 0.0833333333333 & 0.0774193548387\\
+\hline
+42 & 21 & 0.106575963719 & 0.0902111324376\\
 \hline
 \end{tabular}
 \caption{Table of BPREF values for a selection of CACM queries.}
