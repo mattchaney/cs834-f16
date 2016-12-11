@@ -16,3 +16,5 @@ en
 **/cacm/
 *.tab
 .Rhistory
+**/citing
+**/seminal
