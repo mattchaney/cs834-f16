@@ -1,0 +1,15 @@
+\section{SVM Light Example}
+
+\subsection{Inductive Example}
+SVM Light \cite{svmlight} and the Inductive example were downloaded from \url{http://www.cs.cornell.edu/People/tj/svm_light/}.\\
+
+Following the instructions in the Inductive example, the \texttt{svm\_learn} program was invoked on the training data file train.dat, the output from which can be found in Listing \ref{listing:svmlearn}.  This produced the model file that is used in the classification step.
+
+\lstinputlisting[language={}, caption={output of the svm\_learn program using the train.dat data file}, label=listing:svmlearn,linerange={1-27},firstnumber=1]{code/svmlight/svmlearn.txt}
+
+After the model file was generated the example directs the user to run the \texttt{svm\_classify} program on the provided test data \texttt{(filename: test.dat)} using the training model \texttt{(filename: model)} from the previous step.  The output of this can be found in Listing \ref{listing:svmclass}.
+
+\lstinputlisting[language={}, caption={output of the svm\_classify program using the model training data file}, label=listing:svmclass,linerange={28-35},firstnumber=28]{code/svmlight/svmlearn.txt}
+
+\subsection{Discussion}
+As the results show, the precision was 96.67\% and the recall was 99.00\%, which are very high scores for these measures.  

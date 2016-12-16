@@ -1,0 +1,33 @@
+[mchaney@mchaney-l svmlight]$ ./svm_learn train.dat model
+Scanning examples...done
+Reading examples into memory...100..200..300..400..500..600..700..800..
+900..1000..1100..1200..1300..1400..1500..1600..1700..1800..1900..2000..
+OK. (2000 examples read)
+Setting default regularization parameter C=1.0000
+Optimizing.............................................................
+.......................................................................
+.......................................................................
+.......................................................................
+.......................................................................
+.......................................................................
+........done. (425 iterations)
+Optimization finished (5 misclassified, maxdiff=0.00085).
+Runtime in cpu-seconds: 0.07
+Number of SV: 878 (including 117 at upper bound)
+L1 loss: loss=35.67674
+Norm of weight vector: |w|=19.55576
+Norm of longest example vector: |x|=1.00000
+Estimated VCdim of classifier: VCdim<=383.42791
+Computing XiAlpha-estimates...done
+Runtime for XiAlpha-estimates in cpu-seconds: 0.00
+XiAlpha-estimate of the error: error<=5.85% (rho=1.00,depth=0)
+XiAlpha-estimate of the recall: recall=>95.40% (rho=1.00,depth=0)
+XiAlpha-estimate of the precision: precision=>93.07% (rho=1.00,depth=0)
+Number of kernel evaluations: 45954
+Writing model file...done
+[mchaney@mchaney-l svmlight]$ ./svm_classify test.dat model predictions
+Reading model...OK. (878 support vectors read)
+Classifying test examples..100..200..300..400..500..600..done
+Runtime (without IO) in cpu-seconds: 0.00
+Accuracy on test set: 97.67% (586 correct, 14 incorrect, 600 total)
+Precision/recall on test set: 96.43%/99.00%
